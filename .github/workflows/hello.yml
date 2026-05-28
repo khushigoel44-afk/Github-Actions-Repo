@@ -1,8 +1,9 @@
 name: workflow Example
 
 on: 
-    push:
-        branches: [main]
+    # push:
+    #     branches: [main]
+    workflow_dispatch:
 
 jobs:
     my_job:
