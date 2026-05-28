@@ -1,0 +1,13 @@
+name: workflow Example
+
+on: 
+    push:
+        branches: [main]
+
+jobs:
+    my_job:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Say Hello
+              uses: echo "Hello There!"
+        
