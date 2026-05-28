@@ -40,6 +40,7 @@ jobs:
             - name: Test the code 
               run: echo "Test the code"
     deploy:
+        if: inputs.environment=='dev'
         needs: test
         runs-on: ubuntu-latest
         steps: 
