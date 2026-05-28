@@ -1,0 +1,28 @@
+name: CI/CD 
+
+on: 
+    # push:
+    #     branches: [main]
+    workflow_dispatch:
+
+jobs:
+    code:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout Code 
+              run: echo "Checkout the code"
+    build:
+        runs-on: ubuntu-latest
+        steps: 
+            - name: Build the code 
+              run: echo "Build the code"
+    test:
+        runs-on: ubuntu-latest
+        steps: 
+            - name: Test the code 
+              run: echo "Test the code"
+    deploy:
+        runs-on: ubuntu-latest
+        steps: 
+            - name: Deploy the code 
+              run: echo "Deploy the code"
