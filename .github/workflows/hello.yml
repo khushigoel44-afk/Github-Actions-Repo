@@ -9,5 +9,5 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - name: Say Hello
-              uses: echo "Hello There!"
+              run: echo "Hello There!"
         
