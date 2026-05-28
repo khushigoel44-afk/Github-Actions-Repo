@@ -4,6 +4,22 @@ on:
     # push:
     #     branches: [main]
     workflow_dispatch:
+        inputs:
+            environment:
+                description: This is a CI/CD workflow that works on workflow_dispatch
+                default: dev
+                required: true
+                type: choice
+                options:
+                    - dev
+                    - prod
+                    - staging
+
+
+    # works only with push:
+    # path:
+    #     - "**.html"
+    #     - "**.yml"
 
 jobs:
     code:
