@@ -10,4 +10,10 @@ jobs:
         steps:
             - name: Say Hello
               run: echo "Hello $USER"
+
+    details:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Version of python and docker
+              run: python --version && docker --version 
         
