@@ -21,4 +21,4 @@ jobs:
                 password: ${{secrets.DOCKERHUB_PASSWORD}}
 
             - name: Deploy with Docker Compose
-              run: docker compose up --build  # Deploy The application using Docker Compose
+              run: docker compose down && docker compose up --build -d --remove-orphans  # Deploy The application using Docker Compose
