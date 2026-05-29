@@ -1,8 +1,8 @@
 services:
   
   web:
-      image: ${DOCKERHUB_USER}/flask_app_image
-      ports:
-          - "80:80"
-      restart: always 
+    image: ${DOCKERHUB_USER}/flask_app_image
+    ports:
+      - "80:80"
+    restart: always 
 
