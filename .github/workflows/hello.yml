@@ -1,0 +1,20 @@
+name: workflow Example
+
+on: 
+    # push:
+    #     branches: [main]
+    workflow_dispatch:
+
+jobs:
+    my_job:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Say Hello
+              run: echo "Hello $USER"
+
+    details:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Version of python and docker
+              run: python --version && docker --version 
+        
