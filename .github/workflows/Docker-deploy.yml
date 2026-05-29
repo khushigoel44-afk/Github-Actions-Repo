@@ -3,9 +3,10 @@ name: Deploy Flask App
 on: 
     workflow_dispatch:
 
+env:
+    DOCKERHUB_USER: ${{ vars.DOCKERHUB_USER }}
+
 jobs:
-    env:
-        DOCKERHUB_USER: ${{ vars.DOCKERHUB_USER }}
     deploy:
         runs-on: self-hosted
 
