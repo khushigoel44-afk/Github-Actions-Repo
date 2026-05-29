@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aura | Modern Creative Studio</title>
-    <!-- Google Fonts & FontAwesome Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,600;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -80,6 +79,8 @@
             background: var(--accent-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
         }
 
         .nav-links {
@@ -388,7 +389,7 @@
         /* Mobile Responsive adjustments */
         @media (max-width: 768px) {
             nav { padding: 1.5rem 5%; }
-            .nav-links { display: none; } /* Kept clean for single code layout */
+            .nav-links { display: none; }
             header, section { padding-left: 5%; padding-right: 5%; }
             .hero-content h1 { font-size: 2.8rem; }
             .contact-container { grid-template-columns: 1fr; gap: 3rem; }
@@ -400,7 +401,6 @@
     <div class="glow"></div>
     <div class="glow-2"></div>
 
-    <!-- Navigation Bar -->
     <nav>
         <div class="logo">AURA.</div>
         <ul class="nav-links">
@@ -411,7 +411,6 @@
         </ul>
     </nav>
 
-    <!-- Hero Section -->
     <header id="home">
         <div class="hero-content">
             <h1>Crafting Digital<br><span>Masterpieces</span></h1>
@@ -420,7 +419,6 @@
         </div>
     </header>
 
-    <!-- Services Section -->
     <section id="services">
         <h2 class="section-title">Our Expertise</h2>
         <div class="services-grid">
@@ -442,13 +440,12 @@
         </div>
     </section>
 
-    <!-- Portfolio Section with Live Filter functionality -->
     <section id="portfolio">
         <h2 class="section-title">Selected Works</h2>
         <div class="filter-buttons">
-            <button class="filter-btn active" onclick="filterGallery('all')">All</button>
-            <button class="filter-btn" onclick="filterGallery('design')">Design</button>
-            <button class="filter-btn" onclick="filterGallery('dev')">Development</button>
+            <button class="filter-btn active" onclick="filterGallery('all', event)">All</button>
+            <button class="filter-btn" onclick="filterGallery('design', event)">Design</button>
+            <button class="filter-btn" onclick="filterGallery('dev', event)">Development</button>
         </div>
 
         <div class="gallery-grid" id="gallery">
@@ -476,7 +473,6 @@
         </div>
     </section>
 
-    <!-- Contact Section -->
     <section id="contact">
         <div class="contact-container">
             <div class="contact-details">
@@ -503,7 +499,6 @@
         </div>
     </section>
 
-    <!-- Footer -->
     <footer>
         <p>&copy; 2026 AURA Studio. All rights reserved.</p>
         <div class="social-icons">
@@ -513,7 +508,6 @@
         </div>
     </footer>
 
-    <!-- JavaScript Features -->
     <script>
         // 1. Dynamic Typewriter Effect for Hero Section
         const phrases = ["We design luxury digital experiences.", "We construct highly optimized platforms.", "We turn concepts into interactive art."];
@@ -545,13 +539,13 @@
         document.addEventListener("DOMContentLoaded", () => setTimeout(type, 500));
 
         // 2. Interactive Gallery Filtering
-        function filterGallery(category) {
-            // Update active state button
+        function filterGallery(category, evt) {
             const buttons = document.querySelectorAll('.filter-btn');
             buttons.forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
+            if (evt && evt.target) {
+                evt.target.classList.add('active');
+            }
 
-            // Filter items
             const items = document.querySelectorAll('.gallery-item');
             items.forEach(item => {
                 if (category === 'all' || item.getAttribute('data-category') === category) {
@@ -576,7 +570,7 @@
             const sections = document.querySelectorAll('section, header');
             sections.forEach(section => {
                 const sectionTop = section.offsetTop;
-                if (pageYOffset >= sectionTop - 150) {
+                if (window.pageYOffset >= sectionTop - 150) {
                     current = section.getAttribute('id');
                 }
             });
