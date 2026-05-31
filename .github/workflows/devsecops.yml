@@ -22,3 +22,9 @@ jobs:
         needs: [code-quality, secrets-scan, Dependencies_scan, Docker-linter]
         uses: ./.github/workflows/build_push.yml
         secrets: inherit 
+
+    trivy:
+        needs: [Build_and_Push]
+        uses: ./.github/workflows/image_scan.yml
+        
+
