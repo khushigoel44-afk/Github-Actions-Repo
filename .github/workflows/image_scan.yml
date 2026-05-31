@@ -19,3 +19,4 @@ jobs:
                   image-ref: ${{ vars.DOCKERHUB_USER }}/flask_app_image:${{ github.sha }}
                   severity: 'CRITICAL'
                   exit_code: '1'
+                  
