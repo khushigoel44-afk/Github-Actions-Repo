@@ -1,7 +1,7 @@
 name: Deploy_to_Server
 
 on: 
-    workflow_dispatch:
+    workflow_call:
 
 jobs: 
     deploy_Server:
