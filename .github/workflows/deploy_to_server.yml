@@ -1,0 +1,18 @@
+name: Deploy_to_Server
+
+on: 
+    workflow_dispatch:
+
+jobs: 
+    deploy_Server:
+        runs-on: ubuntu-latest
+        steps:
+            - name: SSH to deploy_Server
+              uses: appleboy/ssh-action@1.0.3
+              with: 
+                  host: ${{ secrets.HOSTNAME_EC2 }}
+                  username: ${{ secrets.USERNAME_EC2 }}
+                  privatekey: ${{ secrets.PRIVATEKEY_EC2 }}
+
+              script: | 
+                  echo "Starting Deployment"
