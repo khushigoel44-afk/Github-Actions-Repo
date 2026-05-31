@@ -10,6 +10,6 @@ jobs:
       - name: Native Deployment on EC2 Host
         run: |
           echo "Executing native bash directly inside the EC2 machine environment!"
-          cd /home/ubuntu
+          cd ~
           mkdir -p Devops
           echo "Directory verification and setup complete."
