@@ -4,20 +4,19 @@ on:
     workflow_call:
 
 jobs:
-    runs-on: ubuntu-latest
-    steps:
-        - name: checkout code
-          uses: actions/checkout@v4
+    dependencies:
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout code
+              uses: actions/checkout@v4
 
-        - name: Setup Python 
-          uses: actions/setup-python@v3 
-          with:
-              python-version: "3.12"
+            - name: Setup Python 
+              uses: actions/setup-python@v3 
+              with:
+                  python-version: "3.12"
 
-        - name: Install Audit
-          run: pip install pip-Audit
-          with:
-              python-version: "3.12"
+            - name: Install Audit
+              run: pip install pip-Audit
 
-        - name: audit Dependencies
-          run: pip audit -r requirements.txt
+            - name: audit Dependencies
+              run: pip audit -r requirements.txt
