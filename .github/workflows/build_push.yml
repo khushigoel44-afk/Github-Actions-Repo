@@ -20,6 +20,7 @@ jobs:
               uses: docker/build-push-action@v6
               with:
                   context: .
+                  push: true
                   tags: |
                       ${{ vars.DOCKERHUB_USER }}/flask_app_image:${{ github.ref_name }} 
                       ${{ vars.DOCKERHUB_USER }}/flask_app_image:latest
