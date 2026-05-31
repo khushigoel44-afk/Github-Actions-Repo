@@ -2,17 +2,10 @@ name: Deploy_to_Server
 
 on: 
     workflow_call:
-        secrets:
-          HOSTNAME_EC2:
-            required: true
-          USERNAME_EC2:
-            required: true
-          PRIVATEKEY_EC2:
-            required: true
 
 jobs: 
     deploy_Server:
-        runs-on: [self-hosted, linux, x64]
+        runs-on: self-hosted
         steps:
           - name: Validate Secrets Context
             env: 
