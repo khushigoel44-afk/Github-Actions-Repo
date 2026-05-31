@@ -15,11 +15,14 @@ jobs:
         runs-on: ubuntu-latest
         steps:
           - name: Validate Secrets Context
+            env: 
+                HOST_CHECK: ${{ secrets.HOSTNAME_EC2 }}
+                USER_CHECK: ${{ secrets.USERNAME_EC2 }}
             run: |
                 echo "Checking if secrets are reaching the reusable workflow..."
-                echo "HOSTNAME_EC2 Length: ${#{{ secrets.HOSTNAME_EC2 }}}"
-                echo "USERNAME_EC2 Length: ${#{{ secrets.USERNAME_EC2 }}}"
-                
+                echo "HOSTNAME_EC2 Length: ${#HOST_CHECK}"
+                echo "USERNAME_EC2 Length: ${#USER_CHECK}"
+
           - name: SSH to deploy_Server
             uses: appleboy/ssh-action@v1.0.3
             with: 
