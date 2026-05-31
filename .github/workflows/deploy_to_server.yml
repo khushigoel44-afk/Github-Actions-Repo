@@ -2,6 +2,13 @@ name: Deploy_to_Server
 
 on: 
     workflow_call:
+        secrets:
+          HOSTNAME_EC2:
+            required: true
+          USERNAME_EC2:
+            required: true
+          PRIVATEKEY_EC2:
+            required: true
 
 jobs: 
     deploy_Server:
@@ -9,10 +16,10 @@ jobs:
         steps:
           - name: Validate Secrets Context
             run: |
-              echo "Checking if secrets are reaching the reusable workflow..."
-              if [ -z "${{ secrets.HOSTNAME_EC2 }}" ]; then echo "❌ HOSTNAME_EC2 is EMPTY"; else echo "✅ HOSTNAME_EC2 is present (Length: ${#HOSTNAME_EC2})"; fi
-              if [ -z "${{ secrets.USERNAME_EC2 }}" ]; then echo "❌ USERNAME_EC2 is EMPTY"; else echo "✅ USERNAME_EC2 is present (Length: ${#USERNAME_EC2})"; fi
-              if [ -z "${{ secrets.PRIVATEKEY_EC2 }}" ]; then echo "❌ PRIVATEKEY_EC2 is EMPTY"; else echo "✅ PRIVATEKEY_EC2 is present (Length: ${#PRIVATEKEY_EC2})"; fi
+                echo "Checking if secrets are reaching the reusable workflow..."
+                echo "HOSTNAME_EC2 Length: ${#{{ secrets.HOSTNAME_EC2 }}}"
+                echo "USERNAME_EC2 Length: ${#{{ secrets.USERNAME_EC2 }}}"
+                
           - name: SSH to deploy_Server
             uses: appleboy/ssh-action@v1.0.3
             with: 
