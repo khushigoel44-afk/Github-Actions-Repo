@@ -31,4 +31,7 @@ jobs:
                 key: ${{ secrets.PRIVATEKEY_EC2 }}
                 script: |
                     echo "Starting Deployment"
-                    mkdir Devops
+                    cd /home/ubuntu
+                    mkdir -p Devops
+                    echo "Directory verification complete."
+                    
