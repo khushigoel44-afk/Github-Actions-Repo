@@ -5,7 +5,7 @@ on:
 
 jobs:
   code_quality:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
@@ -28,3 +28,4 @@ jobs:
 
       - name: run SAST
         run: bandit -r app.py
+        
