@@ -33,9 +33,3 @@ jobs:
     deploy:
         needs: [trivy]
         uses: ./.github/workflows/deploy_to_server.yml
-        secrets: 
-            HOSTNAME_EC2: ${{ secrets.HOSTNAME_EC2 }}
-            USERNAME_EC2: ${{ secrets.USERNAME_EC2 }}
-            PRIVATEKEY_EC2: ${{ secrets.PRIVATEKEY_EC2 }}
-
-

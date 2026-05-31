@@ -12,7 +12,7 @@ on:
 
 jobs: 
     deploy_Server:
-        runs-on: ubuntu-latest
+        runs-on: self-hosted
         steps:
           - name: Validate Secrets Context
             env: 
@@ -34,4 +34,3 @@ jobs:
                     cd /home/ubuntu
                     mkdir -p Devops
                     echo "Directory verification complete."
-                    
