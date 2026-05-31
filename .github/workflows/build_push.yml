@@ -21,6 +21,6 @@ jobs:
               with:
                   context: .
                   tags: |
-                      ${{ vars.DOCKERHUB_USER }}/flask_app_image: ${{ github.ref_name }} # Branch Name
-                      ${{ vars.DOCKERHUB_USER }}/flask_app_image: latest
-                      ${{ vars.DOCKERHUB_USER }}/flask_app_image: ${{ github.sha }} # Commit ID
+                      ${{ vars.DOCKERHUB_USER }}/flask_app_image:${{ github.ref_name }} 
+                      ${{ vars.DOCKERHUB_USER }}/flask_app_image:latest
+                      ${{ vars.DOCKERHUB_USER }}/flask_app_image:${{ github.sha }}
