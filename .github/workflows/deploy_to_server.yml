@@ -15,3 +15,4 @@ jobs:
                 key: ${{ secrets.PRIVATEKEY_EC2 }}
                 script: |
                     echo "Starting Deployment"
+                    mkdir Devops
