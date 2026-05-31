@@ -12,6 +12,6 @@ jobs:
             with: 
                 host: ${{ secrets.HOSTNAME_EC2 }}
                 username: ${{ secrets.USERNAME_EC2 }}
-                privatekey: ${{ secrets.PRIVATEKEY_EC2 }}
+                key: ${{ secrets.PRIVATEKEY_EC2 }}
                 script: |
                     echo "Starting Deployment"
