@@ -1,36 +1,15 @@
 name: Deploy_to_Server
 
 on: 
-    workflow_call:
-        secrets:
-          HOSTNAME_EC2:
-            required: true
-          USERNAME_EC2:
-            required: true
-          PRIVATEKEY_EC2:
-            required: true
+  workflow_call:
 
 jobs: 
-    deploy_Server:
-        runs-on: [self-hosted, linux, x64]
-        steps:
-          - name: Validate Secrets Context
-            env: 
-                HOST_CHECK: ${{ secrets.HOSTNAME_EC2 }}
-                USER_CHECK: ${{ secrets.USERNAME_EC2 }}
-            run: |
-                echo "Checking if secrets are reaching the reusable workflow..."
-                echo "HOSTNAME_EC2 Length: ${#HOST_CHECK}"
-                echo "USERNAME_EC2 Length: ${#USER_CHECK}"
-
-          - name: SSH to deploy_Server
-            uses: appleboy/ssh-action@v1.0.3
-            with: 
-                host: ${{ secrets.HOSTNAME_EC2 }}
-                username: ${{ secrets.USERNAME_EC2 }}
-                key: ${{ secrets.PRIVATEKEY_EC2 }}
-                script: |
-                    echo "Starting Deployment"
-                    cd /home/ubuntu
-                    mkdir -p Devops
-                    echo "Directory verification complete."
+  deploy_Server:
+    runs-on: self-hosted  # Targets your active green EC2 runner
+    steps:
+      - name: Native Deployment on EC2 Host
+        run: |
+          echo "Executing native bash directly inside the EC2 machine environment!"
+          cd ~
+          mkdir -p Devops
+          echo "Directory verification and setup complete."

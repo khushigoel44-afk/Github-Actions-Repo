@@ -3,7 +3,9 @@ name: DevSecOps
 on: 
     workflow_dispatch:
     push:
-        branches: [main]
+        branches:
+            - main
+            - fix-pipeline-queue
 
 jobs: 
     # CI (Continuous Integration with Security Scanning)
@@ -26,7 +28,7 @@ jobs:
         secrets: inherit 
 
     trivy:
-        needs: [Build_and_Push]
+        needs: [Build_and_Push, Docker-linter]
         uses: ./.github/workflows/image_scan.yml
         secrets: inherit 
 
