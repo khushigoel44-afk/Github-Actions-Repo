@@ -28,7 +28,7 @@ jobs:
         secrets: inherit 
 
     trivy:
-        needs: [Build_and_Push]
+        needs: [Build_and_Push, Docker-linter]
         uses: ./.github/workflows/image_scan.yml
         secrets: inherit 
 
