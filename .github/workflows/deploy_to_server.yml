@@ -45,5 +45,5 @@ jobs:
               export username=${{ vars.DOCKERHUB_USER }}
               export password=${{ secrets.DOCKERHUB_PASSWORD }}
               echo ${{ secrets.DOCKERHUB_PASSWORD }} | docker login -u ${{ vars.DOCKERHUB_USER }} --password-stdin
-              sudo username -aG docker $USER && newgrp docker 
+              sudo usermod -aG docker $USER 
               cd ~/Devops && docker compose down && docker compose up --build -d --remove-orphans
