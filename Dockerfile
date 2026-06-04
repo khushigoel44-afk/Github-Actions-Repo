@@ -8,4 +8,4 @@ EXPOSE 80
 
 RUN pip install --no-cache-dir -r requirements.txt
 
-CMD ["gunicorn", "--bind", "0.0.0.0:80", "app.py"]
+CMD ["gunicorn", "--bind", "0.0.0.0:80", "app.app"]
