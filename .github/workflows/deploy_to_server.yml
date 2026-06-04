@@ -5,9 +5,17 @@ on:
 
 jobs: 
   deploy_Server:
-    runs-on: self-hosted  # Targets your active green EC2 runner
+    runs-on: ubuntu-latest  # Targets your active green EC2 runner
     steps:
-      - name: Native Deployment on EC2 Host
+      - name: Checkout Code 
+        uses: actions/checkout@v4
+
+      - name: Executing SSh using appleboy
+        uses: appleboy/ssh-actions@v1.0.3
+        with: 
+          host: ${{ secrets.HOSTNAME_EC2 }}
+          username: ${{ secrets.USERNAME_EC2 }}
+          key: ${{ secrets.PRIVATEKEY_EC2 }}
         run: |
           echo "Executing native bash directly inside the EC2 machine environment!"
           cd ~
