@@ -5,11 +5,49 @@ on:
 
 jobs: 
   deploy_Server:
-    runs-on: self-hosted  # Targets your active green EC2 runner
+    runs-on: ubuntu-latest  # Targets your active green EC2 runner
+    env:
+        DOCKERHUB_USER: ${{ vars.DOCKERHUB_USER }}
+        DOCKERHUB_TAG: ${{ github.sha }}
     steps:
-      - name: Native Deployment on EC2 Host
-        run: |
-          echo "Executing native bash directly inside the EC2 machine environment!"
-          cd ~
-          mkdir -p Devops
-          echo "Directory verification and setup complete."
+      - name: Checkout Code 
+        uses: actions/checkout@v4
+
+      - name: Executing SSh using appleboy and creating the app
+        uses: appleboy/ssh-action@v1.0.3
+        with: 
+          host: ${{ secrets.HOSTNAME_EC2 }}
+          username: ${{ secrets.USERNAME_EC2 }}
+          key: ${{ secrets.PRIVATEKEY_EC2 }}
+          port: 22
+          script: |
+              echo "Deploying the app"
+              cd ~
+              mkdir -p Devops
+              echo "Directory verification and setup completion."
+
+      - name: Copy the docker-compose file
+        uses: appleboy/scp-action@v1
+        with: 
+          host: ${{ secrets.HOSTNAME_EC2 }}
+          username: ${{ secrets.USERNAME_EC2 }}
+          key: ${{ secrets.PRIVATEKEY_EC2 }}
+          source: docker-compose.yml
+          target: ~/Devops
+
+      - name: Executing SSh using appleboy and running the app
+        uses: appleboy/ssh-action@v1.0.3
+        with: 
+          host: ${{ secrets.HOSTNAME_EC2 }}
+          username: ${{ secrets.USERNAME_EC2 }}
+          key: ${{ secrets.PRIVATEKEY_EC2 }}
+          port: 22
+          envs: DOCKERHUB_TAG,DOCKERHUB_USER
+          script: |
+              echo "Running the app!"
+              sudo apt-get update && sudo apt-get install docker.io docker-compose-v2 -y
+              echo "${{ secrets.DOCKERHUB_PASSWORD }}" | sudo docker login -u "${{ vars.DOCKERHUB_USER }}" --password-stdin
+              cd ~/Devops 
+              sudo DOCKERHUB_USER=$DOCKERHUB_USER DOCKERHUB_TAG=$DOCKERHUB_TAG docker compose down 
+              sudo DOCKERHUB_USER=$DOCKERHUB_USER DOCKERHUB_TAG=$DOCKERHUB_TAG docker compose pull
+              sudo DOCKERHUB_USER=$DOCKERHUB_USER DOCKERHUB_TAG=$DOCKERHUB_TAG docker compose up --build -d --remove-orphans
