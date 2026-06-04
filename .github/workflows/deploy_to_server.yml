@@ -16,8 +16,9 @@ jobs:
           host: ${{ secrets.HOSTNAME_EC2 }}
           username: ${{ secrets.USERNAME_EC2 }}
           key: ${{ secrets.PRIVATEKEY_EC2 }}
-        run: |
-          echo "Executing native bash directly inside the EC2 machine environment!"
-          cd ~
-          mkdir -p Devops
-          echo "Directory verification and setup complete."
+          port: 22
+          script: |
+              echo "Executing native bash directly inside the EC2 machine environment!"
+              cd ~
+              mkdir -p Devops
+              echo "Directory verification and setup complete."
