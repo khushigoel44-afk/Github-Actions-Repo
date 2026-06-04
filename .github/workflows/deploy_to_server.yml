@@ -48,6 +48,6 @@ jobs:
               DOCKERHUB_USER: ${{ vars.DOCKERHUB_USER }}
               DOCKERHUB_TAG: ${{ github.event.workflow_run.head_sha }}
               DOCKERHUB_TAG:$GITHUB_WORKFLOW_SHA
-              echo: ${{ github.sha }}
+              echo ${{ github.sha }}
               echo ${{ secrets.DOCKERHUB_PASSWORD }} | sudo docker login -u ${{ vars.DOCKERHUB_USER }} --password-stdin
               cd ~/Devops && sudo docker compose down && sudo docker compose up --build -d --remove-orphans
