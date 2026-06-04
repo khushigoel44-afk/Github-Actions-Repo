@@ -6,6 +6,9 @@ on:
 jobs: 
   deploy_Server:
     runs-on: ubuntu-latest  # Targets your active green EC2 runner
+    env:
+        DOCKERHUB_USER: ${{ vars.DOCKERHUB_USER }}
+        DOCKERHUB_TAG: ${{ github.event.workflow_run.head_sha }}
     steps:
       - name: Checkout Code 
         uses: actions/checkout@v4
@@ -42,8 +45,5 @@ jobs:
           script: |
               echo "Running the app!"
               sudo apt-get update && sudo apt-get install docker.io docker-compose-v2 -y
-              export username=${{ vars.DOCKERHUB_USER }}
-              export password=${{ secrets.DOCKERHUB_PASSWORD }}
               echo ${{ secrets.DOCKERHUB_PASSWORD }} | sudo docker login -u ${{ vars.DOCKERHUB_USER }} --password-stdin
-              sudo usermod -aG docker $USER 
               cd ~/Devops && sudo docker compose down && sudo docker compose up --build -d --remove-orphans
