@@ -10,7 +10,7 @@ jobs:
       - name: Checkout Code 
         uses: actions/checkout@v4
 
-      - name: Executing SSh using appleboy
+      - name: Executing SSh using appleboy and creating the app
         uses: appleboy/ssh-action@v1.0.3
         with: 
           host: ${{ secrets.HOSTNAME_EC2 }}
@@ -18,7 +18,32 @@ jobs:
           key: ${{ secrets.PRIVATEKEY_EC2 }}
           port: 22
           script: |
-              echo "Executing native bash directly inside the EC2 machine environment!"
+              echo "Deploying the app"
               cd ~
               mkdir -p Devops
               echo "Directory verification and setup completion."
+
+      - name: Copy the docker-compose file
+        uses: appleboy/scp-action@v1
+        with: 
+          host: ${{ secrets.HOSTNAME_EC2 }}
+          username: ${{ secrets.USERNAME_EC2 }}
+          key: ${{ secrets.PRIVATEKEY_EC2 }}
+          source: docker-compose.yml
+          target: ~/Devops
+
+      - name: Executing SSh using appleboy and running the app
+        uses: appleboy/ssh-action@v1.0.3
+        with: 
+          host: ${{ secrets.HOSTNAME_EC2 }}
+          username: ${{ secrets.USERNAME_EC2 }}
+          key: ${{ secrets.PRIVATEKEY_EC2 }}
+          port: 22
+          script: |
+              echo "Running the app!"
+              sudo apt-get install docker.io docker-compose-v2 -y
+              export username=${{ vars.DOCKERHUB_USER }}
+              export password=${{ secrets.DOCKERHUB_PASSWORD }}
+              echo ${{ secrets.DOCKERHUB_PASSWORD }} | docker login -u ${{ secrets.DOCKERHUB_PASSWORD }} --password-stdin
+              sudo username -aG docker $USER && newgrp docker 
+              cd ~/Devops && docker compose down && docker compose up --build -d --remove-orphans
