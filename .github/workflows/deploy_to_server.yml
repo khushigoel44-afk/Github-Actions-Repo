@@ -21,4 +21,4 @@ jobs:
               echo "Executing native bash directly inside the EC2 machine environment!"
               cd ~
               mkdir -p Devops
-              echo "Directory verification and setup complete."
+              echo "Directory verification and setup completion."
