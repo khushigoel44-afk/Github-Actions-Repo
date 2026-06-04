@@ -44,6 +44,6 @@ jobs:
               sudo apt-get update && sudo apt-get install docker.io docker-compose-v2 -y
               export username=${{ vars.DOCKERHUB_USER }}
               export password=${{ secrets.DOCKERHUB_PASSWORD }}
-              echo ${{ secrets.DOCKERHUB_PASSWORD }} | docker login -u ${{ secrets.DOCKERHUB_PASSWORD }} --password-stdin
+              echo ${{ secrets.DOCKERHUB_PASSWORD }} | docker login -u ${{ vars.DOCKERHUB_USER }} --password-stdin
               sudo username -aG docker $USER && newgrp docker 
               cd ~/Devops && docker compose down && docker compose up --build -d --remove-orphans
